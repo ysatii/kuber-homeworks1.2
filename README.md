@@ -69,6 +69,67 @@ docker ps
 
 ------
 
+### Решение 1.
+перйдем в раочую директорию
+```
+cd ~/k8s-homework
+nano hello-world-pod.yaml
+```
+1. Создадим Манифест 
+Содеримое файла hello-world-pod.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world
+spec:
+  containers:
+  - name: echoserver
+    image: gcr.io/kubernetes-e2e-test-images/echoserver:2.2
+    ports:
+    - containerPort: 8080
+```
+2. Подключение к Pod через port-forward
+```
+kubectl port-forward pod/hello-world 8080:8080
+```
+
+в другом терминале выполним 
+```
+curl http://localhost:8080
+```
+
+3. Освободим порт,  убив процесс
+```
+sudo lsof -i -P -n | grep 8080
+[sudo] пароль для lamer: 
+firefox   2336849           lamer   93u  IPv4 16997878      0t0  TCP 127.0.0.1:45016->127.0.0.1:8080 (ESTABLISHED)
+kubectl   2343691           lamer    7u  IPv4 16988109      0t0  TCP 127.0.0.1:8080 (LISTEN)
+kubectl   2343691           lamer    8u  IPv4 16998874      0t0  TCP 127.0.0.1:8080->127.0.0.1:45016 (ESTABLISHED)
+curl      2347261           lamer    5u  IPv4 16997252      0t0  TCP 127.0.0.1:33532->127.0.0.1:8080 (ESTABLISHED)
+lamer@lamer-VirtualBox:~/k8s-homework$ sudo kill -9 2343691
+lamer@lamer-VirtualBox:~/k8s-homework$ sudo lsof -i -P -n | grep 8080
+[1]+  Убито              kubectl port-forward pod/hello-world 8080:8080
+lamer@lamer-VirtualBox:~/k8s-homework$ sudo lsof -i -P -n | grep 8080
+lamer@lamer-VirtualBox:~/k8s-homework$ 
+```
+
+![img 1](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img1.jpg)
+![img 2](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img2.jpg)
+![img 3](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img3.jpg)
+![img 4](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img4.jpg)
+![img 5](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img5.jpg)
+
+
+
+
+
+
+
+
+
+
+
 ### Задание 2. Создать Service и подключить его к Pod
 
 1. Создать Pod с именем netology-web.
