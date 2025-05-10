@@ -1,6 +1,6 @@
 # Домашнее задание к занятию «Базовые объекты K8S» - Мельник Юрий Александрович
 
-### Цель задания
+## Цель задания
 
 В тестовой среде для работы с Kubernetes, установленной в предыдущем ДЗ, необходимо развернуть Pod с приложением и подключиться к нему со своего локального компьютера. 
 
@@ -15,11 +15,11 @@
 ------
 ### Подготовка к выполению задания 
 
-1. проверим установлен ли 
+1. Проверим установлен ли 
  ```
  docker --version
  ```
- получен ответ **Docker version 28.1.1, build 4eba377**
+ Получен ответ **Docker version 28.1.1, build 4eba377**
  установка доккер не требуеться!  
 
 2. Установка kubectl
@@ -36,7 +36,7 @@
  sudo install minikube-linux-amd64 /usr/local/bin/minikube
  minikube version
 ```
- запуск minikube
+ Запуск minikube
 ```
 minikube start --driver=docker
 ```
@@ -49,7 +49,7 @@ mkdir -p ~/k8s-homework
 cd ~/k8s-homework
 ```
 
-4. проверка готовности 
+4. Проверка готовности 
 ```
 minikube status
 kubectl get nodes
@@ -63,7 +63,7 @@ docker ps
 
 ------
 
-### Задание 1. Создать Pod с именем hello-world
+## Задание 1. Создать Pod с именем hello-world
 
 1. Создать манифест (yaml-конфигурацию) Pod.
 2. Использовать image - gcr.io/kubernetes-e2e-test-images/echoserver:2.2.
@@ -71,7 +71,7 @@ docker ps
 
 ------
 
-### Решение 1.
+## Решение 1.
 перйдем в рабочую директорию
 ```
 cd ~/k8s-homework
@@ -121,7 +121,7 @@ lamer@lamer-VirtualBox:~/k8s-homework$
 
 ![img 5](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img5.jpg)
 
-### Задание 2. Создать Service и подключить его к Pod
+## Задание 2. Создать Service и подключить его к Pod
 
 1. Создать Pod с именем netology-web.
 2. Использовать image — gcr.io/kubernetes-e2e-test-images/echoserver:2.2.
@@ -129,7 +129,7 @@ lamer@lamer-VirtualBox:~/k8s-homework$
 4. Подключиться локально к Service с помощью `kubectl port-forward` и вывести значение (curl или в браузере).
 
 
-### Решение 2. Создать Service и подключить его к Pod
+## Решение 2. Создать Service и подключить его к Pod
 1. перйдем в рабочую директорию
 ```
 cd ~/k8s-homework
@@ -188,8 +188,6 @@ curl http://localhost:8080
 ![img 7](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img7.jpg)
 ![img 8](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img8.jpg)
 
-### Правила приёма работы
-
 6.  Удаление всех ресурсов из netology-web.yaml
 ```
 kubectl delete -f netology-web.yaml
@@ -199,6 +197,11 @@ kubectl get svc
 ![img 9](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img9.jpg)
 
 
+## Ссылки на манифесты разработанные при выполнении задания
+[создание пода](https://github.com/ysatii/kuber-homeworks1.2/blob/main/k8s-homework/hello-world-pod.yaml)
+[создание пода и сервиса](https://github.com/ysatii/kuber-homeworks1.2/blob/main/k8s-homework/netology-web.yaml)
+
+### Правила приёма работы
 1. Домашняя работа оформляется в своем Git-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 2. Файл README.md должен содержать скриншоты вывода команд `kubectl get pods`, а также скриншот результата подключения.
 3. Репозиторий должен содержать файлы манифестов и ссылки на них в файле README.md.
@@ -207,5 +210,4 @@ kubectl get svc
 
 ### Критерии оценки
 Зачёт — выполнены все задания, ответы даны в развернутой форме, приложены соответствующие скриншоты и файлы проекта, в выполненных заданиях нет противоречий и нарушения логики.
-
 На доработку — задание выполнено частично или не выполнено, в логике выполнения заданий есть противоречия, существенные недостатки.
