@@ -190,6 +190,15 @@ curl http://localhost:8080
 
 ### Правила приёма работы
 
+6.  Удаление всех ресурсов из netology-web.yaml
+```
+kubectl delete -f netology-web.yaml
+kubectl get pods
+kubectl get svc
+```
+![img 9](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img9.jpg)
+
+
 1. Домашняя работа оформляется в своем Git-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 2. Файл README.md должен содержать скриншоты вывода команд `kubectl get pods`, а также скриншот результата подключения.
 3. Репозиторий должен содержать файлы манифестов и ссылки на них в файле README.md.
