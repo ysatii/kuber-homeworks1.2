@@ -13,6 +13,46 @@
 3. Редактор YAML-файлов с подключенным Git-репозиторием.
 
 ------
+### Подготовка к выполению задания 
+
+1. проверим установлен ли 
+ ```
+ docker --version
+ ```
+ получен ответ **Docker version 28.1.1, build 4eba377**
+ установка доккер не требуеться!  
+
+2. Установка kubectl
+ ```
+ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+ chmod +x kubectl
+ sudo mv kubectl /usr/local/bin/
+ kubectl version --client
+ ```
+
+3. Установка Minikube (для локального кластера)
+```
+ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+ sudo install minikube-linux-amd64 /usr/local/bin/minikube
+ minikube version
+```
+ запуск minikube
+```
+minikube start --driver=docker
+```
+
+Создание пространства для работы
+```
+mkdir -p ~/k8s-homework
+cd ~/k8s-homework
+```
+
+4. проверка готовности 
+```
+minikube status
+kubectl get nodes
+docker ps
+```
 
 ### Инструменты и дополнительные материалы, которые пригодятся для выполнения задания
 
