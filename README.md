@@ -40,6 +40,8 @@
 ```
 minikube start --driver=docker
 ```
+![img 1](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img1.jpg)
+![img 2](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img2.jpg)
 
 Создание пространства для работы
 ```
@@ -70,7 +72,7 @@ docker ps
 ------
 
 ### Решение 1.
-перйдем в раочую директорию
+перйдем в рабочую директорию
 ```
 cd ~/k8s-homework
 nano hello-world-pod.yaml
@@ -99,6 +101,9 @@ kubectl port-forward pod/hello-world 8080:8080
 curl http://localhost:8080
 ```
 
+![img 3](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img3.jpg)
+![img 4](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img4.jpg)
+
 3. Освободим порт,  убив процесс
 ```
 sudo lsof -i -P -n | grep 8080
@@ -114,21 +119,7 @@ lamer@lamer-VirtualBox:~/k8s-homework$ sudo lsof -i -P -n | grep 8080
 lamer@lamer-VirtualBox:~/k8s-homework$ 
 ```
 
-![img 1](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img1.jpg)
-![img 2](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img2.jpg)
-![img 3](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img3.jpg)
-![img 4](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img4.jpg)
 ![img 5](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img5.jpg)
-
-
-
-
-
-
-
-
-
-
 
 ### Задание 2. Создать Service и подключить его к Pod
 
@@ -137,7 +128,65 @@ lamer@lamer-VirtualBox:~/k8s-homework$
 3. Создать Service с именем netology-svc и подключить к netology-web.
 4. Подключиться локально к Service с помощью `kubectl port-forward` и вывести значение (curl или в браузере).
 
-------
+
+### Решение 2. Создать Service и подключить его к Pod
+1. перйдем в рабочую директорию
+```
+cd ~/k8s-homework
+nano netology-web.yaml
+```
+
+листинг netology-web.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: netology-web
+  labels:
+    app: netology-web
+spec:
+  containers:
+  - name: echoserver
+    image: gcr.io/kubernetes-e2e-test-images/echoserver:2.2
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: netology-svc
+spec:
+  selector:
+    app: netology-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+```
+
+2. применим манифест
+```
+kubectl apply -f netology-web.yaml
+```  
+
+3. Проверим, что Pod и Service создались
+```
+kubectl get pods
+kubectl get svc
+```
+
+4.  Подключение через port-forward
+```
+kubectl port-forward svc/netology-svc 8080:80
+```
+
+5.  Проверка подключения
+в другом терминале терминале выполни:
+curl http://localhost:8080
+
+![img 6](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img6.jpg)
+![img 7](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img7.jpg)
+![img 8](https://github.com/ysatii/kuber-homeworks1.2/blob/main/img/img8.jpg)
 
 ### Правила приёма работы
 
